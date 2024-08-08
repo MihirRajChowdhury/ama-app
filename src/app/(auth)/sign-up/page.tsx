@@ -32,6 +32,7 @@ export default function SignUpForm() {
 
   const router = useRouter();
   const { toast } = useToast();
+  const [isVisible,setIsVisible] = useState(false);
 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -156,7 +157,11 @@ export default function SignUpForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
-                  <Input type="password" {...field} name="password" />
+                  <Input type={isVisible?"text":"password"} {...field} name="password" />
+                  <Button onClick={()=>{
+                    setIsVisible(!isVisible)
+                  }}><p>{isVisible?"hide":"show"}</p></Button>
+                  
                   <FormMessage />
                 </FormItem>
               )}
